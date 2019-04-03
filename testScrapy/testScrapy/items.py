@@ -12,3 +12,9 @@ class TestscrapyItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     pass
+
+# 测试用下载图片的image
+class Test1Item(scrapy.Item):
+    image_urls = scrapy.Field()
+    images = scrapy.Field()   # 带标签的
+    # image_path = scrapy.Field()

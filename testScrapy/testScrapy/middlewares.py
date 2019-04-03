@@ -16,13 +16,14 @@ import time
 
 # class AreaSpiderMiddleware(object):
 
-
+# 1. 启用中间件setting中
+# 2. 这个文件中设置中间件，设置好这个请求的方法。
+# 3. 可以有多个中间件
 class TestscrapySpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the spider middleware does not modify the
     # passed objects.
     def process_request(self, request, spider):
-        print("fuck")
         print("正在调用请求哈")
         chrome_options = Options()
         chrome_options.add_argument('--headless')  # 使用无头谷歌浏览器模式
@@ -32,11 +33,11 @@ class TestscrapySpiderMiddleware(object):
         self.driver = webdriver.Chrome(chrome_options=chrome_options,executable_path=r'C:\Users\zhengyimiing\OneDrive\桌面\MHcrawl\chromedriver')
         if request.url != 'https://www.aqistudy.cn/historydata/':
             self.driver.get(request.url)
-            time.sleep(1)
+            time.sleep(1)  # 这儿设置了限速，手动限速
             html = self.driver.page_source
             self.driver.quit()
             print("这儿是解析的requests")
-            print(html)
+            # print(html)  这个暂时可以注释掉
             return scrapy.http.HtmlResponse(url=request.url, body=html.encode('utf-8'), encoding='utf-8',
                                             request=request)
 

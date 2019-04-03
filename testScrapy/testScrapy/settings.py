@@ -14,12 +14,24 @@ BOT_NAME = 'testScrapy'
 SPIDER_MODULES = ['testScrapy.spiders']
 NEWSPIDER_MODULE = 'testScrapy.spiders'
 
+
+# 修改请求中间件，使用 chromedriver
 DOWNLOADER_MIDDLEWARES = {
   'testScrapy.middlewares.TestscrapySpiderMiddleware': 543,
 }
 
+# 下载图片的设置
+# ITEM_PIPELINES = {
+#     'scrapy.pipelines.images.ImagesPipeline': 1 #
+# }
+# IMAGES_EXPIRES = 90
+# IMAGES_MIN_HEIGHT = 100
+# IMAGES_MIN_WIDTH = 100
+# IMAGES_STORE = 'images'
+# IMAGES_THUMBS ={ 'small':(30,30) }  #这是设置缩略图吗
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'testScrapy (+http://www.yourdomain.com)'
+# USER_AGENT = 'testScrapy (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
