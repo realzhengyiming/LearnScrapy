@@ -6,12 +6,39 @@
 # https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
+from scrapy import signals
+import scrapy
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+import time
+
+
+
+# class AreaSpiderMiddleware(object):
 
 
 class TestscrapySpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the spider middleware does not modify the
     # passed objects.
+    def process_request(self, request, spider):
+        print("fuck")
+        print("正在调用请求哈")
+        chrome_options = Options()
+        chrome_options.add_argument('--headless')  # 使用无头谷歌浏览器模式
+        chrome_options.add_argument('--disable-gpu')
+        chrome_options.add_argument('--no-sandbox')
+        # 指定谷歌浏览器路径
+        self.driver = webdriver.Chrome(chrome_options=chrome_options,executable_path=r'C:\Users\zhengyimiing\OneDrive\桌面\MHcrawl\chromedriver')
+        if request.url != 'https://www.aqistudy.cn/historydata/':
+            self.driver.get(request.url)
+            time.sleep(1)
+            html = self.driver.page_source
+            self.driver.quit()
+            print("这儿是解析的requests")
+            print(html)
+            return scrapy.http.HtmlResponse(url=request.url, body=html.encode('utf-8'), encoding='utf-8',
+                                            request=request)
 
     @classmethod
     def from_crawler(cls, crawler):
@@ -69,6 +96,8 @@ class TestscrapyDownloaderMiddleware(object):
         return s
 
     def process_request(self, request, spider):
+        print("shit")
+        # 这个是默认的，改成使用谷歌无头浏览器来进行请求修改
         # Called for each request that goes through the downloader
         # middleware.
 
